@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Твоё пространство</title>
+    <style>
+        :root {
+            --bg: #0f0f13;
+            --card: #1a1a24;
+            --accent: #a78bfa;
+            --accent2: #f472b6;
+            --text: #e5e5eb;
+            --muted: #8b8b9e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Градиентный фон */
+        .bg-glow {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(167,139,250,0.15), transparent 40%),
+                radial-gradient(circle at 70% 80%, rgba(244,114,182,0.12), transparent 40%);
+            z-index: -1;
+            animation: drift 20s ease-in-out infinite;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(2%, 3%) rotate(3deg); }
+        }
+
+        /* Шапка */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        /* Hero-секция */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            color: var(--muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Слоганы-бейджи */
+        .slogans {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 35px;
+        }
+
+        .badge {
+            background: var(--card);
+            border: 1px solid rgba(167,139,250,0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--text);
+            transition: all 0.3s;
+            animation: fadeUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .badge:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(167,139,250,0.15);
+        }
+
+        .badge:nth-child(1) { animation-delay: 0.1s; }
+        .badge:nth-child(2) { animation-delay: 0.2s; }
+        .badge:nth-child(3) { animation-delay: 0.3s; }
+        .badge:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Сетка фото */
+        .photos {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .photos h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .photo-card {
+            background: var(--card);
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(167,139,250,0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .placeholder {
+            color: var(--muted);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .placeholder .icon {
+            font-size: 2rem;
+            opacity: 0.5;
+        }
+
+        /* Секция "Обо мне" */
+        .about {
+            max-width: 700px;
+            margin: 80px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        /* Подвал */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Кнопка */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 30px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(167,139,250,0.3);
+        }
+
+        /* Адаптив */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+
+            nav a {
+                margin: 0 15px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+
+    <header>
+        <div class="logo">твой_домен.ru</div>
+        <nav>
+            <a href="#photos">Фото</a>
+            <a href="#about">Обо мне</a>
+            <a href="#contact">Контакты</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Привет, это <span class="gradient">моё пространство</span> в интернете</h1>
+        <p>Здесь я делюсь тем, что люблю: фотографиями, мыслями и моментами жизни.</p>
+
+        <div class="slogans">
+            <span class="badge">✨ Живу моментом</span>
+            <span class="badge">🚀 Вперёд к новому</span>
+            <span class="badge">🎯 Мечтаю смело</span>
+            <span class="badge">🌈 Вижу красоту в простом</span>
+        </div>
+
+        <a href="#photos" class="btn">Смотреть фото ↓</a>
+    </section>
+
+    <section class="photos" id="photos">
+        <h2>📸 Мои фотографии</h2>
+        <div class="grid">
+            <!-- ФОТО 1: Замени src на свою картинку -->
+            <div class="photo-card">
+                <img src="photo1.jpg" alt="Фото 1" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder\'><span class=\'icon\'>📷</span>Замени на photo1.jpg</div>';">
+            </div>
+
+            <!-- ФОТО 2 -->
+            <div class="photo-card">
+                <img src="photo2.jpg" alt="Фото 2" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder\'><span class=\'icon\'>📷</span>Замени на photo2.jpg</div>';">
+            </div>
+
+            <!-- ФОТО 3 -->
+            <div class="photo-card">
+                <img src="photo3.jpg" alt="Фото 3" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder\'><span class=\'icon\'>📷</span>Замени на photo3.jpg</div>';">
+            </div>
+
+            <!-- ФОТО 4 -->
+            <div class="photo-card">
+                <img src="photo4.jpg" alt="Фото 4" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder\'><span class=\'icon\'>📷</span>Замени на photo4.jpg</div>';">
+            </div>
+
+            <!-- ФОТО 5 -->
+            <div class="photo-card">
+                <img src="photo5.jpg" alt="Фото 5" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder\'><span class=\'icon\'>📷</span>Замени на photo5.jpg</div>';">
+            </div>
+
+            <!-- ФОТО 6 -->
+            <div class="photo-card">
+                <img src="photo6.jpg" alt="Фото 6" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder\'><span class=\'icon\'>📷</span>Замени на photo6.jpg</div>';">
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2>Обо мне</h2>
+        <p>Я — человек, который любит исследовать мир через объектив камеры. Каждое фото здесь — это маленькая история, момент, который я захотел(а) сохранить навсегда.</p>
+        <p>Этот сайт работает на GitHub Pages — абсолютно бесплатно. Единственное, за что я плачу — это домен, который привязан к этому месту.</p>
+    </section>
+
+    <footer id="contact">
+        <p>Сделано с ❤️ | Работает на <a href="https://pages.github.com" target="_blank">GitHub Pages</a></p>
+        <p>Связь со мной: <a href="mailto:your@email.com">your@email.com</a></p>
+    </footer>
+</body>
+</html>
