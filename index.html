@@ -3,283 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>панк-упадок · дединсайд</title>
-    <!-- материал-подобные тени, округлости, чёрный фон -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #0b0b0b;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 20px;
-        }
-
-        .card {
-            max-width: 700px;
-            width: 100%;
-            background: #1a1a1a;
-            border-radius: 48px 48px 48px 48px;
-            padding: 40px 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 6px 12px rgba(255, 20, 20, 0.08);
-            border: 1px solid #2e2e2e;
-            transition: all 0.2s ease;
-        }
-
-        /* материал-подобные элементы с округлостями */
-        .slogan-block {
-            background: #222222;
-            border-radius: 32px;
-            padding: 24px 28px;
-            margin-bottom: 24px;
-            border-left: 4px solid #b71c1c;
-            box-shadow: inset 0 -2px 0 #3a3a3a, 0 8px 16px rgba(0,0,0,0.6);
-            transition: 0.15s;
-        }
-
-        .slogan-block:last-child {
-            margin-bottom: 0;
-        }
-
-        .slogan-text {
-            font-size: 1.6rem;
-            font-weight: 600;
-            line-height: 1.3;
-            letter-spacing: -0.02em;
-            color: #f0f0f0;
-            text-shadow: 0 2px 0 #00000055;
-        }
-
-        .slogan-sub {
-            font-size: 1rem;
-            font-weight: 300;
-            color: #aaa;
-            margin-top: 10px;
-            border-top: 1px dashed #3a3a3a;
-            padding-top: 12px;
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .slogan-sub span {
-            background: #2a2a2a;
-            padding: 2px 14px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #b0b0b0;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-
-        .chip-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 14px;
-            margin-top: 28px;
-            justify-content: flex-start;
-            border-top: 1px solid #2c2c2c;
-            padding-top: 28px;
-        }
-
-        .chip {
-            background: #262626;
-            border-radius: 60px;
-            padding: 8px 22px;
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: #d0d0d0;
-            border: 1px solid #3a3a3a;
-            box-shadow: 0 2px 0 #0f0f0f;
-            letter-spacing: 0.3px;
-            transition: 0.1s;
-        }
-
-        .chip.dark-red {
-            border-color: #6d1a1a;
-            color: #e8b3b3;
-            background: #2a1818;
-        }
-
-        .chip.outline {
-            background: transparent;
-            border: 1px solid #404040;
-            color: #b0b0b0;
-        }
-
-        .footer-note {
-            margin-top: 32px;
-            font-size: 0.85rem;
-            color: #555;
-            text-align: right;
-            border-top: 1px solid #222;
-            padding-top: 20px;
-            letter-spacing: 0.6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .footer-note .stamp {
-            background: #1e1e1e;
-            padding: 4px 18px;
-            border-radius: 60px;
-            color: #7a7a7a;
-            font-size: 0.7rem;
-            font-weight: 500;
-            border: 1px solid #303030;
-        }
-
-        .divider {
-            height: 2px;
-            background: linear-gradient(90deg, #2c2c2c 0%, #4a4a4a 50%, #2c2c2c 100%);
-            margin: 18px 0 20px 0;
-            border-radius: 20px;
-            opacity: 0.6;
-        }
-
-        /* агрессивный акцент для некоторых фраз */
-        .slogan-block.depressed {
-            border-left-color: #6d3b3b;
-            background: #1f1a1a;
-        }
-
-        .slogan-block.angry {
-            border-left-color: #b71c1c;
-            background: #221818;
-        }
-
-        .slogan-block.angry .slogan-text {
-            color: #f2d0d0;
-        }
-
-        .slogan-block.depressed .slogan-text {
-            color: #c5baba;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #2c1a1a;
-            padding: 2px 16px 2px 14px;
-            border-radius: 30px;
-            color: #dba6a6;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 6px;
-            border: 1px solid #4d2b2b;
-        }
-
-        @media (max-width: 480px) {
-            .card {
-                padding: 24px 16px;
-                border-radius: 32px;
-            }
-            .slogan-text {
-                font-size: 1.3rem;
-            }
-            .slogan-block {
-                padding: 18px 20px;
-            }
-            .chip-group {
-                gap: 8px;
-            }
-            .chip {
-                padding: 6px 16px;
-                font-size: 0.8rem;
-            }
-        }
-    </style>
+    <title>Andrikck | Личный сайт</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Подключаем шрифты Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="card">
-        <!-- блок слоганов — панк, упадок, депрессивный налёт -->
-        <div class="slogan-block angry">
-            <div class="slogan-text">
-                🤘 ЖИЗНЬ — ЭТО ФАРС, А ТЫ ЕГО ЗРИТЕЛЬ
-                <span class="badge">БЕЗ БИЛЕТА</span>
-            </div>
-            <div class="slogan-sub">
-                <span>☠︎ панк-нигилизм</span> 
-                «смысла нет, но ты здесь»
+
+        <!-- ===== НАВИГАЦИЯ ===== -->
+    <nav class="navbar">
+        <!-- Нижний слой: логотип строго слева -->
+        <div class="nav-background">
+            <div class="container">
+                <a href="#" class="logo">Andrikck</a>
             </div>
         </div>
 
-        <div class="slogan-block depressed">
-            <div class="slogan-text">
-                🥀 ВСЁ РАВНО СГНИЁМ, НО СТИЛЬНО
-            </div>
-            <div class="slogan-sub">
-                <span>✹ депрессивный шик</span>
-                чёрный цвет — единственная правда
-            </div>
-        </div>
-
-        <div class="slogan-block angry">
-            <div class="slogan-text">
-                🔥 ТВОЙ ОПТИМИЗМ МЕНЯ БЕСИТ
-            </div>
-            <div class="slogan-sub">
-                <span>⚡ агрессия</span>
-                иди нахер с улыбкой
+        <!-- Верхний слой: меню по центру поверх -->
+        <div class="nav-overlay">
+            <div class="container">
+                <ul class="nav-menu">
+                    <li><a href="#about">Обо мне</a></li>
+                    <li><a href="#interests">Интересы</a></li>
+                    <li><a href="#goals">Цели и ценности</a></li>
+                    <li><a href="#experience">Опыт и достижения</a></li>
+                </ul>
+                <!-- Бургер-меню для мобильных устройств -->
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
+    </nav>
 
-        <div class="divider"></div>
-
-        <!-- ещё пара фраз, более "упаднические" -->
-        <div class="slogan-block depressed" style="border-left-color: #4d2f2f;">
-            <div class="slogan-text" style="font-weight: 500;">
-                ⚰️ МОЙ ДЕНЬ — КАК ЧЁРНЫЙ КВАДРАТ
-                <span style="font-size: 1rem; background: #2a1e1e; padding: 0 12px; border-radius: 30px; margin-left: 8px;">МАЛЕВИЧ ПЛАЧЕТ</span>
-            </div>
-            <div class="slogan-sub">
-                <span>◈ меланхолия</span>
-                проснулся — уже перебор
+    <!-- ===== ГЛАВНЫЙ БАННЕР (HERO) ===== -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Привет, я Andrikck 👋</h1>
+                <p>Студент · Разработчик · Гитарист</p>
             </div>
         </div>
+    </header>
 
-        <div class="slogan-block" style="border-left-color: #5a3b3b; background: #1d1818;">
-            <div class="slogan-text" style="color: #dcc8c8;">
-                💀 НАДЕЖДА — ЭТО ЛОВУШКА ДЛЯ ЛОХОВ
+        <!-- ===== РАЗДЕЛ: ОБО МНЕ ===== -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">Обо мне</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        <strong>Я студент ГУАП</strong> — Санкт-Петербургского государственного университета аэрокосмического приборостроения.
+                    </p>
+                    <p>
+                        Здесь я учусь, развиваюсь и ищу себя в мире технологий. Этот сайт — мой личный проект, в котором я делюсь тем, чем живу и что мне интересно.
+                    </p>
+                    <p>
+                        <!-- Добавь сюда пару строк о том, чем ты занимаешься в вузе или что изучаешь -->
+                        Учусь на направлении, связанном с информационными технологиями. В планах — глубже разобраться в веб-разработке, алгоритмах и современных инструментах.
+                    </p>
+                </div>
+                <div class="about-image">
+                    <!-- Здесь будет твоё фото -->
+                    <img src="img/photo.jpg" alt="Моё фото" class="avatar-photo">
+                    <!-- Если фото нет, показывается заглушка:
+                    <div class="placeholder-avatar">👤</div>
+                    -->
+                </div>
             </div>
-            <div class="slogan-sub">
-                <span>⛓️ цинизм</span>
-                но ты всё равно ждёшь
+        </div>
+    </section>
+
+        <!-- ===== РАЗДЕЛ: ИНТЕРЕСЫ И УВЛЕЧЕНИЯ ===== -->
+    <section id="interests" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Интересы и увлечения</h2>
+            <div class="cards-grid">
+                <div class="card" data-bg="img/android.jpg">
+                    <h3>Android-разработка</h3>
+                    <p>Создаю мобильные приложения под Android. Интересуюсь архитектурой, API, MVP, бекендом.</p>
+                </div>
+                <div class="card" data-bg="img/guitar.jpg">
+                    <h3>Гитара и пианино</h3>
+                    <p>Играю на гитаре и пианино. Люблю исполнять как классику, так и современные мелодии.</p>
+                </div>
+                <div class="card" data-bg="img/rubik.jpg">
+                    <h3>Кубик Рубика</h3>
+                    <p>Собираю кубик Рубика на скорость. Засекаю время каждой сборки в приложении и стремлюсь к рекордам.</p>
+                </div>
+                <div class="card" data-bg="img/typing.jpg">
+                    <h3>Скоростная слепая печать</h3>
+                    <p>Развиваю скорость печати на русском и английском языках. Стремлюсь к 200+ словам в минуту.</p>
+                </div>
+                <div class="card" data-bg="img/games.jpg">
+                    <h3>Игры</h3>
+                    <p>Geoguessr — угадываю местность по гугл картам. Roblox — иногда захожу в режимы. REPO — 70+ уровень в соло.</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- "чипсы" — материал-стиль, чёрные округлости -->
-        <div class="chip-group">
-            <span class="chip dark-red">#дединсайд</span>
-            <span class="chip">безнадёга</span>
-            <span class="chip outline">панк-молчание</span>
-            <span class="chip dark-red" style="border-color: #7a2a2a;">✘ ругательства</span>
-            <span class="chip outline">стиль &amp; апатия</span>
-            <span class="chip">чёрный квадрат</span>
+    <!-- ===== РАЗДЕЛ: ЦЕЛИ И ЦЕННОСТИ ===== -->
+    <section id="goals" class="section">
+        <div class="container">
+            <h2 class="section-title">Цели и ценности</h2>
+            <div class="goals-grid">
+            </div>
         </div>
+    </section>
 
-        <!-- футер с "материальным" акцентом -->
-        <div class="footer-note">
-            <span class="stamp">⏣ 2026 · github pages</span>
-            <span style="color: #5a5a5a; font-size: 0.8rem; letter-spacing: 0.5px;">
-                <span style="background: #1a1a1a; padding: 2px 12px; border-radius: 30px;">☾ упадок утверждён</span>
-            </span>
+    <!-- ===== РАЗДЕЛ: ОПЫТ И ДОСТИЖЕНИЯ ===== -->
+    <section id="experience" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Опыт и достижения</h2>
+            <div class="timeline">
+            </div>
         </div>
+    </section>
 
-        <!-- маленький скрытый "панк-привет" -->
-        <div style="margin-top: 14px; display: flex; justify-content: flex-end;">
-            <span style="background: #151515; color: #3d3d3d; padding: 2px 24px; border-radius: 60px; font-size: 0.6rem; border: 1px solid #252525; letter-spacing: 2px;">ВСЁ БУДЕТ ХЕРОВО</span>
+    <!-- ===== ПОДВАЛ ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>2026 Andrikck.</p>
+            <div class="social-links">
+                <a href="https://github.com/andreyvol2005" target="_blank">GitHub</a>
+                <a href="https://t.me/andreyvol2005" target="_blank">Telegram</a>
+            </div>
         </div>
-    </div>
+    </footer>
+
+    <!-- Маленький скрипт для мобильного меню -->
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
