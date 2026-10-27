@@ -15,7 +15,25 @@ permissions:
   id-token: write   # OIDC-токен для подтверждения деплоя
 
 jobs:
+  # Первое задание — проверка качества кода (CI).
+  # Если линтер найдёт ошибку, деплой не запустится.
+  lint:
+    name: Check HTML and CSS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Lint static site
+        run: python scripts/check_site.py
+
   deploy:                  # задание: собрать и опубликовать сайт
+    needs: lint            # публикуем только после успешной проверки
     runs-on: ubuntu-latest # виртуальная машина-исполнитель
     environment:
       name: github-pages
