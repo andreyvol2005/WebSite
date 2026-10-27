@@ -130,20 +130,6 @@ a {
     margin-bottom: 30px;
 }
 
-/* Плашка, подтверждающая автоматическое обновление сайта через CI/CD */
-.hero-content .ci-badge {
-    display: inline-block;
-    margin-bottom: 0;
-    padding: 8px 20px;
-    border: 1px solid #3fb950;
-    border-radius: 50px;
-    background-color: rgba(63, 185, 80, 0.12);
-    color: #3fb950;
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-}
-
 .btn {
     display: inline-block;
     background-color: #238636;
